@@ -48,4 +48,14 @@ if st.button('Predict'):
     transmission_encoded= encode_dict['transmission_type'][transmission_inp]
 
     second_hand_price=model_pred(fuel_type_encoded,transmission_encoded, engine,seats)
-    st.write("Predicted Price is: ", str(second_hand_price))
+    formatted_price = round(second_hand_price[0] * 1_000_000, 2)  # assuming normalized, scale appropriately
+
+    st.markdown(
+        f"""
+        <div style="background-color:#f0f2f6;padding:20px;border-radius:10px">
+            <h3 style="color:#0a9396;">💰 Estimated Second-hand Car Price</h3>
+            <h1 style="color:#001219;">₹ {formatted_price:,.2f}</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
